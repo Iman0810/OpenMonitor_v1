@@ -26,7 +26,10 @@ public class MetricController {
 
     @PostMapping
     public Metric createMetric(@Valid @RequestBody Metric metric){
-        metric.setTimestamp(LocalDateTime.now());
+
+        LocalDateTime now = LocalDateTime.now();
+        metric.setTimestamp(now);
+        metric.setLastSeen(now);
         return metricRepository.save(metric);
     }
 

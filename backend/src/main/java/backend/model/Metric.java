@@ -38,6 +38,8 @@ public class Metric {
     private double diskUsage;
     private LocalDateTime timestamp;
 
+    private LocalDateTime lastSeen;
+
 
     public Long getId(){
         return id;
@@ -101,5 +103,11 @@ public class Metric {
     }
 
 
+    public LocalDateTime getLastSeen() {
+        return lastSeen;
+    }
 
+    public void setLastSeen(LocalDateTime lastSeen) {
+        this.lastSeen = lastSeen;
+    }
 }

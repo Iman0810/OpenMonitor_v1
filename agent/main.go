@@ -24,6 +24,8 @@ type Metric struct {
 	RAMUsage float64 `json:"ramUsage"`
 
 	DiskUsage float64 `json:"diskUsage"`
+
+	LastSeen string `json:"lastSeen"`
 }
 
 func collectMetrics() Metric {
@@ -61,6 +63,8 @@ func collectMetrics() Metric {
 		RAMUsage: memory.UsedPercent,
 
 		DiskUsage: diskInfo.UsedPercent,
+		
+		LastSeen: time.Now().Format(time.RFC3339),
 	}
 
 }

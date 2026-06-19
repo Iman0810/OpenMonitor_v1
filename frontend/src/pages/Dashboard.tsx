@@ -45,36 +45,48 @@ function Dashboard() {
 
     return (
 
-        <div>
+        <div className="
+min-h-screen
+bg-black
+text-white
+p-10
+">
 
-            <h1>
-                Open Monitor Dashboard
+            <h1 className="
+text-5xl
+font-bold
+mb-12
+text-center
+">
+                OpenMonitor Dashboard
             </h1>
 
+            <div className="
+grid
+grid-cols-1
+md:grid-cols-3
+gap-6
+justify-items-center
+">
+                {
 
-            {
+                    metrics.map((metric: any) => (
 
-                metrics.map((metric: any) => (
+                        <DeviceCard
+                            key={metric.agentId}
+                            metric={metric}
+                        />
 
-                    <DeviceCard
-                        key={metric.agentId}
-                        metric={metric}
-                    />
+                    ))
 
+                }
 
-                ))
-
-
-            }
+            </div>
 
 
-        </div>
-
-
-    )
-
-
+            </div>
+       
+    );
 }
-
 
 export default Dashboard;
