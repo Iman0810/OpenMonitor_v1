@@ -1,6 +1,6 @@
 package backend.controller;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ public class MetricController {
     @PostMapping
     public Metric createMetric(@Valid @RequestBody Metric metric){
 
-        LocalDateTime now = LocalDateTime.now();
+        OffsetDateTime now = OffsetDateTime.now();
         metric.setTimestamp(now);
         metric.setLastSeen(now);
         return metricRepository.save(metric);

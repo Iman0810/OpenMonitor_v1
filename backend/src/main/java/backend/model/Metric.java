@@ -2,7 +2,7 @@ package backend.model;
 
 
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,9 +36,8 @@ public class Metric {
     @Min(value = 0, message = "Disk usage must be a positive value")
     @Max(value = 100, message = "Disk usage must be between 0 and 100")
     private double diskUsage;
-    private LocalDateTime timestamp;
-
-    private LocalDateTime lastSeen;
+        private OffsetDateTime timestamp;
+        private OffsetDateTime lastSeen;
 
 
     public Long getId(){
@@ -93,21 +92,21 @@ public class Metric {
     }
 
 
-    public LocalDateTime getTimestamp() {
+    public OffsetDateTime getTimestamp() {
         return timestamp;
     }
 
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(OffsetDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
 
-    public LocalDateTime getLastSeen() {
+    public OffsetDateTime getLastSeen() {
         return lastSeen;
     }
 
-    public void setLastSeen(LocalDateTime lastSeen) {
+    public void setLastSeen(OffsetDateTime lastSeen) {
         this.lastSeen = lastSeen;
     }
 }
