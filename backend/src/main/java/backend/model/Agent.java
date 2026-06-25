@@ -39,6 +39,15 @@ public class Agent {
     private List<Metric> metrics;
 
 
+    public List<Metric> getMetrics(){
+        return metrics;
+    }
+
+
+    public void setMetrics(List<Metric> metrics){
+        this.metrics = metrics;
+    }
+
 
     public Long getId(){
         return id;

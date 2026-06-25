@@ -20,7 +20,7 @@ public class Metric {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "agent_id", nullable = false)
+    @JoinColumn(name = "agent_id", referencedColumnName = "agentId", nullable = false)
     private Agent agent;
 
     @NotBlank(message = "Device name is required")
