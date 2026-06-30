@@ -38,70 +38,58 @@ public class MetricController {
 
 
 
-    @PostMapping
-    public Metric createMetric(
-            @Valid @RequestBody Metric metric
-    ){
+@PostMapping
+public Metric createMetric(
+        @Valid @RequestBody Metric metric
+){
 
-        OffsetDateTime now = OffsetDateTime.now();
+    OffsetDateTime now = OffsetDateTime.now();
 
+    Agent agent = agentRepository
+            .findByAgentId(
+                metric.getAgent().getAgentId()
+            )
+            .orElseGet(() -> {
 
-        if(metric.getAgent() == null ||
-           metric.getAgent().getAgentId() == null){
+                Agent newAgent = new Agent();
 
-            throw new RuntimeException(
-                "Agent information missing"
-            );
-
-        }
-
-
-
-        Agent agent = agentRepository
-                .findByAgentId(
+                newAgent.setAgentId(
                     metric.getAgent().getAgentId()
-                )
-                .orElseGet(() -> {
+                );
 
-                    Agent newAgent = new Agent();
+                newAgent.setDeviceName(
+                    metric.getDeviceName()
+                );
 
-                    newAgent.setAgentId(
-                        metric.getAgent().getAgentId()
-                    );
+                newAgent.setStatus("ONLINE");
 
-                    newAgent.setDeviceName(
-                        metric.getDeviceName()
-                    );
-
-                    newAgent.setStatus("ONLINE");
-
-                    newAgent.setLastSeen(now);
+                newAgent.setLastSeen(now);
 
 
-                    return agentRepository.save(newAgent);
+                return agentRepository.save(newAgent);
 
-                });
+            });
 
 
 
-        agent.setStatus("ONLINE");
-        agent.setLastSeen(now);
+    agent.setStatus("ONLINE");
+    agent.setLastSeen(now);
 
-        agentRepository.save(agent);
-
-
-
-        metric.setAgent(agent);
-
-        metric.setTimestamp(now);
-
-        metric.setLastSeen(now);
+    agentRepository.save(agent);
 
 
 
-        return metricService.SaveMetric(metric);
+    metric.setAgent(agent);
 
-    }
+    metric.setTimestamp(now);
+
+    metric.setLastSeen(now);
+
+
+
+    return metricService.SaveMetric(metric);
+
+}
 
 
 

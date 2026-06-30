@@ -23,7 +23,7 @@ public class Metric {
 
     @ManyToOne
     @JoinColumn(name = "agent_id", referencedColumnName = "agentId", nullable = false)
-    @JsonIgnoreProperties("metrics")
+    @JsonIgnoreProperties({"metrics"})
     private Agent agent;
 
     @NotBlank(message = "Device name is required")
