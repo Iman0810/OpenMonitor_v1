@@ -87,7 +87,7 @@ function Dashboard() {
             mb-12
             text-center
             ">
-                Open Monitor Dashboard
+               Pulse Dashboard
             </h1>
 
 
