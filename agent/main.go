@@ -13,9 +13,12 @@ import (
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/google/uuid"
 )
+type Agent struct {
+	AgentID string `json:"agentId"`
+}
 type Metric struct {
 
-	AgentID string `json:"agentId"`
+	Agent Agent `json:"agent"`
 
 	DeviceName string `json:"deviceName"`
 
@@ -54,7 +57,7 @@ func collectMetrics() Metric {
 
 	return Metric{
 
-		AgentID: getAgentID(),
+		Agent: Agent{AgentID: getAgentID()},
 
 		DeviceName: hostname,
 
@@ -90,26 +93,28 @@ func validateMetric(metric Metric) bool {
 	return true
 }
 
-func sendMetrics(metric Metric){
+func sendMetrics(metric Metric) {
 
-	data,_ := json.Marshal(metric)
+    data, _ := json.Marshal(metric)
 
-	_, err := http.Post(
-		"http://localhost:8080/api/metrics",
-		"application/json",
-		bytes.NewBuffer(data),
-	)
+    resp, err := http.Post(
+        "http://localhost:8080/api/metrics",
+        "application/json",
+        bytes.NewBuffer(data),
+    )
 
-	if err != nil {
+    if err != nil {
+        fmt.Println("Failed to send metrics:", err)
+        return
+    }
 
-		fmt.Println("Failed to send metrics:", err)
-		return
-	}
+    defer resp.Body.Close()
 
-	fmt.Println("Metrics sent successfully" , metric)
+    fmt.Println("HTTP Status:", resp.Status)
 
-	
+    fmt.Println("Metrics sent:", metric)
 }
+
 func getAgentID() string {
 
 
